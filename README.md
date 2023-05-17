@@ -19,4 +19,5 @@ jobs:
         uses: Mergifyio/gha-mergify-merge-queue-labels-copier
         with:
           labels: docker
+          additional-labels: merge-queue-pr
 ```
