@@ -20,6 +20,6 @@ runs:
           gh pr view --json labels -q '.labels[]|.name' ${REPOSITORY_URL}/pull/$pr_number | while read label ; do
             if [[ -z "$labels" ]] || [[ ",$labels," =~ ",$label," ]]; then
               gh pr edit --add-label "$label" $MERGE_QUEUE_PR_URL
-            if
+            fi
           done
         done
