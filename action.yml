@@ -10,7 +10,7 @@ runs:
   steps:
     - name: Copying labels
       shell: bash
-      if: startsWith('mergify/merge-queue/', github.head_ref)
+      if: startsWith(github.head_ref, 'mergify/merge-queue/')
       env:
         REPOSITORY_URL: ${{ github.server_url }}/${{ github.repository }}
         MERGE_QUEUE_PR_URL: ${{ github.server_url }}/${{ github.repository }}/pull/${{ github.event.pull_request.number }}
