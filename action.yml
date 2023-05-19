@@ -27,7 +27,7 @@ runs:
               gh pr edit --add-label "$label" $MERGE_QUEUE_PR_URL
             fi
           done
-          for additional-label in $(echo $ADDITIONAL_LABELS | sed "s/,/ /g") ; do
-            gh pr edit --add-label "$additional-label" $MERGE_QUEUE_PR_URL
+          for additional_label in $(echo $ADDITIONAL_LABELS | sed "s/,/ /g") ; do
+            gh pr edit --add-label "$additional_label" $MERGE_QUEUE_PR_URL
           done
         done
