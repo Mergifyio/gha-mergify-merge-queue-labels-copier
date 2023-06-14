@@ -20,4 +20,5 @@ jobs:
         with:
           labels: docker
           additional-labels: merge-queue-pr
+          repo-token: ${{ github.token }}
 ```
