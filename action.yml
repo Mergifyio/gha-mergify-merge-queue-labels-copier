@@ -1,5 +1,8 @@
 name: 'mergify-merge-queue-labels-copier'
 description: 'Mergify: copies pull request labels to merge queue draft PRs'
+branding:
+  icon: arrow-up
+  color: 'blue'
 inputs:
   labels:
     description: 'Comma separated list of labels to copy (all if empty)'
