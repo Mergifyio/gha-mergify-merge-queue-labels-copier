@@ -25,7 +25,8 @@ runs:
       env:
         REPOSITORY_URL: ${{ github.server_url }}/${{ github.repository }}
         MERGE_QUEUE_PR_URL: ${{ github.server_url }}/${{ github.repository }}/pull/${{ github.event.pull_request.number }}
-        GH_TOKEN: ${{ inputs.token}}
+        GH_TOKEN: ${{ inputs.token }}
+        GH_ENTERPRISE_TOKEN: ${{ inputs.token }}
         ADDITIONAL_LABELS: ${{ inputs.additional-labels }}
       run: |
         gh pr view --json body -q ".body" $MERGE_QUEUE_PR_URL | sed -n -e '/```yaml/,/```/p' | sed -e '1d;$d' | yq '.pull_requests[]|.number' | while read pr_number ; do
