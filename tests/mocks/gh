@@ -1,0 +1,44 @@
+#!/bin/bash
+set -Eeuo pipefail
+echo "gh $*" >> "${MOCK_LOG_FILE}"
+
+cmd="$1"; shift || true
+if [[ "$cmd" != "pr" ]]; then
+  echo "Unsupported gh command: $cmd" >&2; exit 2
+fi
+
+sub="$1"; shift || true
+case "$sub" in
+  view)
+    # Body: gh pr view --json body -q ".body" "$MERGE_QUEUE_PR_URL"
+    # Labels: gh pr view --json labels -q '.labels[]|.name' "$REPO_URL/pull/<num>"
+    if [[ "${1:-}" == "--json" && "${2:-}" == "body" ]]; then
+      echo "${MERGE_QUEUE_PR_BODY:-}"
+      exit 0
+    elif [[ "${1:-}" == "--json" && "${2:-}" == "labels" ]]; then
+      last="${*:-}"; prnum="${last##*/}"
+      case "$prnum" in
+        101) printf "%s\n" bug backport ;;
+        202) printf "%s\n" docs ;;
+        303) printf "%s\n" bar ;;
+        *) echo "Unknown PR #$prnum" >&2; exit 2 ;;
+      esac
+      exit 0
+    else
+      echo "Unexpected gh pr view invocation: gh pr view $*" >&2
+      exit 2
+    fi
+    ;;
+  edit)
+    url="$1"; shift || true
+    if [[ "${1:-}" != "--add-label" ]]; then
+      echo "Expected --add-label arg, got: $1" >&2; exit 2
+    fi
+    shift || true
+    labels="$1"
+    echo "EDIT|URL=$url|LABELS=$labels" >> "${MOCK_LOG_FILE}"
+    ;;
+  *)
+    echo "Unsupported gh pr subcommand: $sub" >&2; exit 2
+    ;;
+esac

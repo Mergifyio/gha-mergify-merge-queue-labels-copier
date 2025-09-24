@@ -1,0 +1,36 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches:
+      - main
+      - devs/**
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v5.0.0
+      - name: Build 🔧 & Test 🔍
+        run: |
+          pip install pytest
+          pytest -v tests
+
+  linters:
+    timeout-minutes: 20
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v5.0.0
+
+      - name: Actionlint
+        uses: docker://rhysd/actionlint:latest
+        with:
+          args: -color
+
+      - name: Shellcheck
+        run: |
+          shellcheck run.sh
+          shellcheck tests/mocks/gh
+
