@@ -29,6 +29,11 @@ for pr_number in "${PR_NUMBERS[@]}"; do
 
 done
 
+# strip leading and trailing commas, and remove duplicates
+LABELS_TO_ADD=${LABELS_TO_ADD%%,}
+LABELS_TO_ADD=${LABELS_TO_ADD##,}
+LABELS_TO_ADD=${LABELS_TO_ADD//,,/,}
+
 echo "Adding labels $LABELS_TO_ADD to $MERGE_QUEUE_PR_URL"
 if [ -n "$LABELS_TO_ADD" ]; then
     gh pr edit "$MERGE_QUEUE_PR_URL" --add-label "$LABELS_TO_ADD"
