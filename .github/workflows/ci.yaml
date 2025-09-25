@@ -34,3 +34,14 @@ jobs:
           shellcheck run.sh
           shellcheck tests/mocks/gh
 
+  actions:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v5.0.0
+      - name: Try copying labels
+        uses: ./.
+        with:
+          labels: docker
+          additional-labels: merge-queue-pr
+          token: ${{ github.token }}
