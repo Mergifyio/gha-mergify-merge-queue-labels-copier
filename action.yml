@@ -19,6 +19,12 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Set GitHub Path
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+      shell: bash
+      run: echo "$GITHUB_ACTION_PATH" >> "$GITHUB_PATH"
+
     - name: Copying labels
       shell: bash
       if: startsWith(github.head_ref, 'mergify/merge-queue/')
@@ -29,4 +35,4 @@ runs:
         GH_ENTERPRISE_TOKEN: ${{ inputs.token }}
         LABELS_TO_COPY: ${{ inputs.labels }}
         ADDITIONAL_LABELS: ${{ inputs.additional-labels }}
-      run: ./run.sh
+      run: run.sh
