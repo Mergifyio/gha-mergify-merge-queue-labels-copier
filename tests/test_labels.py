@@ -30,12 +30,12 @@ def print_stdx(proc):
 @pytest.mark.parametrize(
     "prs,addl,ltc,expected",
     [
-        pytest.param([101], None, None, ",bug,backport", id="ONE|no-addl|copy=ALL"),
+        pytest.param([101], None, None, "bug,backport", id="ONE|no-addl|copy=ALL"),
         pytest.param(
             [101], "EXTRA", None, "EXTRA,bug,backport", id="ONE|addl=EXTRA|copy=ALL"
         ),
         pytest.param(
-            [101], None, "backport", ",backport", id="ONE|no-addl|copy=backport"
+            [101], None, "backport", "backport", id="ONE|no-addl|copy=backport"
         ),
         pytest.param(
             [101],
@@ -48,7 +48,7 @@ def print_stdx(proc):
             [101],
             None,
             "backport,bar,zzz",
-            ",backport",
+            "backport",
             id="ONE|no-addl|copy=backport,bar,zzz",
         ),
         pytest.param(
@@ -62,7 +62,7 @@ def print_stdx(proc):
             [101, 202, 303],
             None,
             None,
-            ",bug,backport,docs,bar",
+            "bug,backport,docs,bar",
             id="THREE|no-addl|copy=ALL",
         ),
         pytest.param(
@@ -76,7 +76,7 @@ def print_stdx(proc):
             [101, 202, 303],
             None,
             "backport",
-            ",backport",
+            "backport",
             id="THREE|no-addl|copy=backport",
         ),
         pytest.param(
@@ -90,7 +90,7 @@ def print_stdx(proc):
             [101, 202, 303],
             None,
             "backport,bar,zzz",
-            ",backport,bar",
+            "backport,bar",
             id="THREE|no-addl|copy=backport,bar,zzz",
         ),
         pytest.param(
